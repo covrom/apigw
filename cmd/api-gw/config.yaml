@@ -1,0 +1,8 @@
+listen: :8080
+specs:
+  - name: Service A
+    context: /service-a
+    target: http://localhost:8082
+  - name: Service B
+    context: /service-b
+    target: http://localhost:8081
