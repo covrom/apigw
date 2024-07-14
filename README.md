@@ -4,7 +4,7 @@ Manage your backend APIs.
 
 Roadmap:
 
-- [x] Reverse proxy (paths syntax like OpenAPI and Golang)
+- [x] Reverse proxy (paths syntax like OpenAPI and Golang 1.22+)
 - [ ] Optional dumps
 - [ ] OpenTelemetry tracing option for paths
 - [ ] Rate limit on paths
