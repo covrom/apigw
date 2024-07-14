@@ -1,2 +1,1 @@
-# apigw
-API Gateway (reverse proxy)
+# Go API Gateway Using httputil.ReverseProxy
