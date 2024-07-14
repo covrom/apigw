@@ -9,12 +9,7 @@ import (
 	"time"
 )
 
-func NewProxy(targetUrl string) (*httputil.ReverseProxy, error) {
-	target, err := url.Parse(targetUrl)
-	if err != nil {
-		return nil, err
-	}
-
+func NewProxy(target *url.URL) (*httputil.ReverseProxy, error) {
 	proxy := httputil.NewSingleHostReverseProxy(target)
 
 	proxy.Transport = &http.Transport{
@@ -39,5 +34,6 @@ func NewProxy(targetUrl string) (*httputil.ReverseProxy, error) {
 		slog.Info("Response", "requestId", reqID, "content", string(dumpResponse))
 		return nil
 	}
+
 	return proxy, nil
 }

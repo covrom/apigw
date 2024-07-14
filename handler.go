@@ -33,13 +33,6 @@ func RecoverWrap(h http.Handler) http.Handler {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}()
-		h.ServeHTTP(w, r)
-	})
-}
-
-func NewHandler(p *httputil.ReverseProxy) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		reqID, _ := r.Context().Value(requestID{}).(string)
 
 		if r.Method == http.MethodConnect {
 			slog.Error("unexpected CONNECT method", "requestId", reqID)
@@ -53,10 +46,15 @@ func NewHandler(p *httputil.ReverseProxy) http.HandlerFunc {
 			slog.Error("can't dump request", "requestId", reqID, "err", err)
 		}
 
-		r.URL.Path = r.PathValue("targetPath")
-
 		slog.Info("Request", "requestId", reqID, "content", dumpRequest)
 
+		h.ServeHTTP(w, r)
+	})
+}
+
+func NewHandler(p *httputil.ReverseProxy) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// reqID, _ := r.Context().Value(requestID{}).(string)
 		p.ServeHTTP(w, r)
 	}
 }
